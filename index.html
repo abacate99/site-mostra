@@ -1,326 +1,119 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Atletas Olímpicos</title>
-    <style>
-        /* Reset de margens e paddings */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    /* Estilos padrão (modo claro) */
+    body {
+      background-color: #f4f4f9;
+      color: #333;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .form-control {
+      background-color: #fff;
+      border-color: #ccc;
+      color: #333;
+    }
+    .form-check-label {
+      color: #333;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-dark-mode {
+      background-color: #333;
+      color: #fff;
+      border-color: #333;
+    }
 
-        /* Estilo do corpo da página */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* Container principal */
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 600px;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        /* Título principal */
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        /* Estilo dos formulários */
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        /* Botões */
-        button {
-            padding: 12px;
-            background-color: #3498db;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Mensagem de erro */
-        .error {
-            color: #e74c3c;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        /* Página Home */
-        #home-page {
-            display: none;
-            text-align: center;
-        }
-
-        /* Blocos de informação */
-        .info-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .info-block {
-            background-color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: left;
-            transition: background-color 0.3s;
-        }
-
-        .info-block:hover {
-            background-color: #d0d7de;
-        }
-
-        .info-block h2 {
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
-
-        .info-block p {
-            font-size: 1em;
-            color: #34495e;
-        }
-
-        /* Botão de sair */
-        #logout-btn {
-            background-color: #e74c3c;
-        }
-
-        #logout-btn:hover {
-            background-color: #c0392b;
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5em;
-            }
-        }
-    </style>
+    /* Modo escuro */
+    .dark-mode {
+      background-color: #222;
+      color: #ddd;
+    }
+    .dark-mode .form-control {
+      background-color: #333;
+      border-color: #555;
+      color: #ddd;
+    }
+    .dark-mode .form-check-label {
+      color: #ddd;
+    }
+    .dark-mode .btn-primary {
+      background-color: #555;
+      border-color: #555;
+    }
+  </style>
 </head>
 <body>
-    <!-- Página de Login -->
-    <div class="container" id="login-page">
-        <h1>Login</h1>
-        <form onsubmit="event.preventDefault(); login();">
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
-            
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-            
-            <p id="error-message" class="error"></p>
-            
-            <button type="submit">Entrar</button>
-        </form>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Login</h2>
+    <!-- Formulário de Login -->
+    <form onsubmit="login(event)">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Nome</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nome">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Senha</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    
+    <!-- Botão para ativar modo escuro -->
+    <div class="text-center mt-4">
+      <button onclick="toggleDarkMode()" class="btn btn-dark-mode">Ativar Modo Escuro</button>
     </div>
+  </div>
 
-    <!-- Página Home para cada Atleta -->
-    <div class="container" id="home-page" style="display: none;">
-        <h1>Bem-vindo!</h1>
-        <div class="info-container" id="info-container">
-            <!-- Informações serão preenchidas dinamicamente -->
-        </div>
-        <button id="logout-btn" onclick="logout()">Sair</button>
-    </div>
+<script>
+  // Função para falar a mensagem
+  function falar(mensagem) {
+    let speech = new SpeechSynthesisUtterance();
+    speech.text = mensagem;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+  }
 
-    <script>
-        // Dados dos atletas
-        const athletes = {
-            'rayssa': {
-                name: 'Rayssa Leal',
-                idade: '16 anos',
-                altura: '1,52 metros',
-                peso: '47 kg',
-                frequenciaCardiaca: '110 bpm',
-                vitoriasInternacionais: '5',
-                pontuacaoAlta: '9.2',
-                primeiroPatrocinio: '2015',
-                categoria: 'Street',
-                treinosSemana: '5 dias',
-                patrocinadores: ['Nike', 'Red Bull'],
-                inspiracao: 'Letícia Bufoni',
-                medalhasXGames: '2 medalhas',
-            },
-            'ana': {
-                name: 'Ana Marcela Cunha',
-                idade: '32 anos',
-                altura: '1,70 metros',
-                peso: '65 kg',
-                frequenciaCardiaca: '130 bpm',
-                vitoriasInternacionais: '15',
-                pontuacaoAlta: '10.0',
-                primeiroPatrocinio: '2007',
-                categoria: 'Natação em Águas Abertas',
-                treinosSemana: '6 dias',
-                patrocinadores: ['Adidas', 'Speedo'],
-                inspiracao: 'Michael Phelps',
-                medalhasOlimpicas: '1 ouro',
-            },
-            'arthur': {
-                name: 'Arthur Nory',
-                idade: '30 anos',
-                altura: '1,69 metros',
-                peso: '70 kg',
-                frequenciaCardiaca: '120 bpm',
-                vitoriasInternacionais: '10',
-                pontuacaoAlta: '9.8',
-                primeiroPatrocinio: '2011',
-                categoria: 'Ginástica Artística',
-                treinosSemana: '6 dias',
-                patrocinadores: ['Adidas', 'Under Armour'],
-                inspiracao: 'Diego Hypólito',
-                medalhasOlimpicas: '1 bronze',
-            },
-            'rebeca': {
-                name: 'Rebeca Andrade',
-                idade: '24 anos',
-                altura: '1,55 metros',
-                peso: '55 kg',
-                frequenciaCardiaca: '115 bpm',
-                vitoriasInternacionais: '8',
-                pontuacaoAlta: '9.9',
-                primeiroPatrocinio: '2013',
-                categoria: 'Ginástica Artística',
-                treinosSemana: '5 dias',
-                patrocinadores: ['Nike', 'Coca-Cola'],
-                inspiracao: 'Simone Biles',
-                medalhasOlimpicas: '1 ouro, 1 prata',
-            }
-        };
+  // Função de login
+  function login(event) {
+    event.preventDefault(); // Evitar que o formulário seja enviado
+    var user = document.getElementById("exampleInputEmail1").value.toLowerCase();
+    var pass = document.getElementById("exampleInputPassword1").value;
+    
+    // Verifica se o login é correto
+    if (user === "rayssa" && pass === "1234") {
+      alert("Login bem-sucedido!");
+      falar("Boas-vindas " + user);  // Fala boas-vindas se o login for correto
+    } else {
+      alert("Tente novamente!");
+      falar("Tente novamente!");  // Fala "tente novamente" se o login estiver incorreto
+    }
+  }
 
-        function login() {
-            const username = document.getElementById('username').value.toLowerCase();
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
-
-            if (athletes[username] && password === '1234') {
-                errorMessage.textContent = '';
-                showHomePage(athletes[username]);
-            } else {
-                errorMessage.textContent = 'Usuário ou senha incorretos.';
-            }
-        }
-
-        function showHomePage(athlete) {
-            const loginPage = document.getElementById('login-page');
-            const homePage = document.getElementById('home-page');
-            const infoContainer = document.getElementById('info-container');
-
-            loginPage.style.display = 'none';
-            homePage.style.display = 'block';
-
-            infoContainer.innerHTML = `
-                <div class="info-block">
-                    <h2>Nome: ${athlete.name}</h2>
-                    <p>Informações detalhadas sobre o atleta ${athlete.name}, incluindo suas conquistas e desempenho.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Idade: ${athlete.idade}</h2>
-                    <p>O atleta tem atualmente ${athlete.idade}, competindo em alto nível desde jovem.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Altura: ${athlete.altura}</h2>
-                    <p>A altura de ${athlete.altura} é uma característica importante para o seu esporte.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Peso: ${athlete.peso}</h2>
-                    <p>O peso ideal para o desempenho de alta performance no esporte em que atua.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Frequência Cardíaca Média: ${athlete.frequenciaCardiaca}</h2>
-                    <p>O atleta mantém uma frequência cardíaca de ${athlete.frequenciaCardiaca} durante os treinos e competições.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Vitórias Internacionais: ${athlete.vitoriasInternacionais}</h2>
-                    <p>O número de vitórias internacionais alcançadas por ${athlete.name}.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Pontuação Mais Alta Registrada: ${athlete.pontuacaoAlta}</h2>
-                    <p>O atleta conseguiu uma pontuação alta de ${athlete.pontuacaoAlta} em competições importantes.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Primeiro Patrocínio: ${athlete.primeiroPatrocinio}</h2>
-                    <p>${athlete.name} foi patrocinado pela primeira vez em ${athlete.primeiroPatrocinio}.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Categoria de Competição: ${athlete.categoria}</h2>
-                    <p>O atleta compete na categoria ${athlete.categoria}, uma das mais desafiadoras.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Patrocinadores: ${athlete.patrocinadores.join(', ')}</h2>
-                    <p>O atleta é patrocinado por marcas de renome como ${athlete.patrocinadores.join(' e ')}.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Inspiração: ${athlete.inspiracao}</h2>
-                    <p>${athlete.name} se inspira em ${athlete.inspiracao}, um ícone do esporte.</p>
-                </div>
-                <div class="info-block">
-                    <h2>Medalhas Olímpicas: ${athlete.medalhasOlimpicas || 'N/A'}</h2>
-                    <p>${athlete.name} conquistou ${athlete.medalhasOlimpicas || 'nenhuma medalha olímpica até o momento.'}</p>
-                </div>
-            `;
-        }
-
-        function logout() {
-            const loginPage = document.getElementById('login-page');
-            const homePage = document.getElementById('home-page');
-
-            loginPage.style.display = 'block';
-            homePage.style.display = 'none';
-        }
-    </script>
+  // Função para alternar entre modo claro e escuro
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');  // Alterna a classe 'dark-mode' no body
+    var button = document.querySelector('.btn-dark-mode');
+    // Muda o texto do botão
+    if (document.body.classList.contains('dark-mode')) {
+      button.textContent = 'Ativar Modo Claro';
+    } else {
+      button.textContent = 'Ativar Modo Escuro';
+    }
+  }
+</script>
 </body>
 </html>
